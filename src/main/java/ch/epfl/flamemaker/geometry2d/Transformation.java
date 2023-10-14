@@ -3,7 +3,7 @@ package ch.epfl.flamemaker.geometry2d;
 
 /**
  * A class representing a transformation
- * 
+ *
  * @author Groux Marcel Jean Jacques	227630
  * @author Platzer Casimir Benjamin		228352
  * @version	1.0
@@ -12,7 +12,7 @@ package ch.epfl.flamemaker.geometry2d;
 public interface Transformation {
 	/**
 	 * Transforms a {@code Point}. 
-	 * 
+	 *
 	 * @param p {@code Point} to transform
 	 * @return transformed {@code Point}
 	 */

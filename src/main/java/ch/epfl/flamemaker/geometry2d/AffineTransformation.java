@@ -3,14 +3,14 @@ package ch.epfl.flamemaker.geometry2d;
 
 /**
  * Affine transformation in a 2D-system
- * 
+ *
  * @author Groux Marcel Jean Jacques	227630
  * @author Platzer Casimir Benjamin		228352
  * @version	1.0
  */
 public final class AffineTransformation implements Transformation {
-	
-	/** 
+
+	/**
 	 * Identity matrix: 
 	 * <pre>
 	 *  [	1	0	0	]
@@ -19,27 +19,27 @@ public final class AffineTransformation implements Transformation {
 	 * </pre>
 	 */
 	public final static AffineTransformation IDENTITY = new AffineTransformation(
-			1, 0, 0, 
+			1, 0, 0,
 			0, 1, 0);
-	
+
 	/** */
 	private final double a;
-	
+
 	/** */
 	private final double b;
-	
+
 	/** */
 	private final double c;
-	
+
 	/** */
 	private final double d;
-	
+
 	/** */
 	private final double e;
-	
+
 	/** */
 	private final double f;
-	
+
 	/**
 	 * Creates an new affine transformation represented by the following matrix: 
 	 * <pre>
@@ -47,7 +47,7 @@ public final class AffineTransformation implements Transformation {
 	 *  	[	d	e	f	]
 	 *  	[	0	0	1	]
 	 * </pre>
-	 * 
+	 *
 	 * @param a
 	 * @param b
 	 * @param c
@@ -55,9 +55,9 @@ public final class AffineTransformation implements Transformation {
 	 * @param e
 	 * @param f
 	 */
-	public AffineTransformation(double a, double b, 
-			double c, double d, 
-			double e, double f) {
+	public AffineTransformation(double a, double b,
+								double c, double d,
+								double e, double f) {
 		this.a = a;
 		this.b = b;
 		this.c = c;
@@ -65,7 +65,7 @@ public final class AffineTransformation implements Transformation {
 		this.e = e;
 		this.f = f;
 	}
-	
+
 	/**
 	 * Creates a translation represented by the following matrix: 
 	 * <pre>
@@ -73,17 +73,17 @@ public final class AffineTransformation implements Transformation {
 	 *  	[	0	1	y	]
 	 *  	[	0	0	1	]
 	 * </pre>
-	 *  	
+	 *
 	 * @param dX offset on the x-axis
 	 * @param dY offset on the y-axis
 	 * @return affine transformation representing a translation
 	 */
 	public static AffineTransformation newTranslation(double dX, double dY) {
 		return new AffineTransformation(
-				1, 0, dX, 
+				1, 0, dX,
 				0, 1, dY);
 	}
-	
+
 	/**
 	 * Creates a rotation represented by the following matrix: 
 	 * <pre>
@@ -91,16 +91,16 @@ public final class AffineTransformation implements Transformation {
 	 *  	[	sin(&#952)	cos(&#952)	0	]
 	 *  	[	0	0	1	]
 	 * </pre>
-	 * 
+	 *
 	 * @param theta angle in radian
 	 * @return affine transformation representing a rotation
 	 */
 	public static AffineTransformation newRotation(double theta) {
 		return new AffineTransformation(
-				Math.cos(theta), -Math.sin(theta), 0, 
+				Math.cos(theta), -Math.sin(theta), 0,
 				Math.sin(theta), Math.cos(theta), 0);
 	}
-	
+
 	/**
 	 * Creates a scaling represented by the following matrix:
 	 * <pre>
@@ -108,17 +108,17 @@ public final class AffineTransformation implements Transformation {
 	 *  	[	0	s<sub>y</sub>	0	]
 	 *  	[	0	0	1	]
 	 * </pre>
-	 * 
+	 *
 	 * @param sX amount to scale on the x-axis
 	 * @param sY amount to scale on the y-axis
 	 * @return affine transformation representing a scaling
 	 */
 	public static AffineTransformation newScaling(double sX, double sY) {
 		return new AffineTransformation(
-				sX, 0, 0, 
+				sX, 0, 0,
 				0, sY, 0);
 	}
-	
+
 	/**
 	 * Creates a shear on the x-axis represented by the following matrix:
 	 * <pre>
@@ -126,16 +126,16 @@ public final class AffineTransformation implements Transformation {
 	 *  	[	0	1	0	]
 	 *  	[	0	0	1	]
 	 * </pre>
-	 * 
+	 *
 	 * @param sX amount to shear on the x-axis
 	 * @return affine transformation representing a shear on the x-axis
 	 */
 	public static AffineTransformation newShearX(double sX) {
 		return new AffineTransformation(
-				1, sX, 0, 
+				1, sX, 0,
 				0, 1, 0);
 	}
-	
+
 	/**
 	 * Creates a shear on the y-axis represented by the following matrix:
 	 * <pre>
@@ -143,51 +143,51 @@ public final class AffineTransformation implements Transformation {
 	 *  	[	0	1	0	]
 	 *  	[	0	0	1	]
 	 * </pre>
-	 * 
+	 *
 	 * @param sY amount to shear on the y-axis
 	 * @return affine transformation representing a shear on the y-axis
 	 */
 	public static AffineTransformation newShearY(double sY) {
 		return new AffineTransformation(
-				1, 0, 0, 
+				1, 0, 0,
 				sY, 1, 0);
 	}
-	
+
 	/**
 	 * Modifies the coordinates of the {@code Point} the following way: 
 	 * <pre>
 	 *  	<i>x = ax + by + c
 	 *  	y = dy + ex + f</i>
 	 * </pre>
-	 * 
+	 *
 	 * @param p {@code Point} to transform
 	 * @return transformed {@code Point}
 	 */
 	public Point transformPoint(Point p) {
 		return new Point(
-				a*p.x() + b*p.y() + c, 
+				a*p.x() + b*p.y() + c,
 				d*p.x() + e*p.y() + f);
 	}
-	
+
 	/** @return amount of translation on x-axis */
 	public double translationX() {
 		return c;
 	}
-	
+
 	/** @return amount of translation on y-axis */
 	public double translationY() {
 		return f;
 	}
-	
+
 	/**
 	 * Creates a composition of two affine transformations. 
 	 * In other words: Simple matrix multiplication 
-	 *  
+	 *
 	 * @param that affine transformation to compose with
 	 * @return The composition of the both affine transformations
 	 */
 	public AffineTransformation composeWith(AffineTransformation that) {
-		
+
 		/* Solution for solving an 3x3 (Here: 3x2) matrix multiplication */
 		return new AffineTransformation(
 				that.a*a + that.b*d,
@@ -197,14 +197,14 @@ public final class AffineTransformation implements Transformation {
 				that.d*b + that.e*e,
 				that.d*c + that.e*f + that.f);
 	}
-	
+
 	/**
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
 		return String.format(
-				"AffineTransformation(%.2f %.2f %.2f \n%.2f %.2f %.2f)", 
+				"AffineTransformation(%.2f %.2f %.2f \n%.2f %.2f %.2f)",
 				a, b, c, d, e, f);
 	}
 }

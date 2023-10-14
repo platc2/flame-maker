@@ -6,9 +6,9 @@ package ch.epfl.flamemaker.color;
  * @version 1.0
  */
 public interface Palette {
-	
+
 	/**
-	 * @param index of the {@code Color} 
+	 * @param index of the {@code Color}
 	 * @return the {@code Color} for the specified index
 	 */
 	Color colorForIndex(double index);
