@@ -1,6 +1,6 @@
-public class APITester {
+public final class APITester {
 
-    private static ClassLoader classLoader = APITester.class.getClassLoader();
+    private final static ClassLoader classLoader = APITester.class.getClassLoader();
 
     public static void testStage1() throws ClassNotFoundException {
         testClasses(new String[]{"geometry2d.Point", "geometry2d.Rectangle",
